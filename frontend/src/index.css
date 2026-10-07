@@ -7,4 +7,77 @@
 
 body {
   font-family: 'Outfit', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Global Dark Mode Overrides */
+html.dark body {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Backgrounds */
+html.dark .bg-white,
+html.dark [class*="bg-white"],
+html.dark [class*="bg-[#ffffff]"] {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html.dark [class*="bg-[#F8F9FA]"],
+html.dark [class*="bg-slate-50"],
+html.dark [class*="bg-slate-100"] {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+/* Universal Text Color Override for Dark Mode */
+html.dark [class*="text-gray-"],
+html.dark [class*="text-slate-"],
+html.dark [class*="text-[#1"], 
+html.dark [class*="text-[#2"],
+html.dark [class*="text-[#3"],
+html.dark [class*="text-[#6"],
+html.dark [class*="text-[#4"],
+html.dark [class*="text-[#5"],
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+html.dark p, html.dark span, html.dark div, html.dark button, html.dark li, html.dark a {
+  color: #f8fafc !important;
+}
+
+/* Dimmer text for secondary elements */
+html.dark p, html.dark [class*="text-sm"], html.dark [class*="text-xs"] {
+  color: #cbd5e1 !important;
+}
+
+/* Preserve Blues */
+html.dark [class*="text-[#0284C7]"], 
+html.dark [class*="text-[#0EA5E9]"], 
+html.dark [class*="text-[#38BDF8]"],
+html.dark [class*="text-blue-"] {
+  color: #38bdf8 !important;
+}
+
+/* Backgrounds - Fix for gray-50 and gray-100 */
+html.dark [class*="bg-gray-50"],
+html.dark [class*="bg-gray-100"],
+html.dark [class*="bg-gray-200"],
+html.dark [class*="bg-[#F8F9FA]"],
+html.dark [class*="bg-slate-50"],
+html.dark [class*="bg-slate-100"] {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+/* Borders */
+html.dark [class*="border-gray-"], 
+html.dark [class*="border-[#E5E7EB]"],
+html.dark [class*="border-[#E2E8F0]"],
+html.dark [class*="border-slate-"] {
+  border-color: #334155 !important;
+}
+
+/* Cards & Shadows */
+html.dark .shadow-lg, html.dark .shadow-xl, html.dark .shadow-sm, html.dark .shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5) !important;
 }
