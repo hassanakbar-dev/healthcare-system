@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Phone, Menu, HeartPulse, Brain, Bone, Baby, Activity, Stethoscope, Eye, Thermometer, ArrowRight } from 'lucide-react';
+import { ChevronDown, Phone, Menu, HeartPulse, Brain, Bone, Baby, Activity, Stethoscope, Eye, Thermometer, ArrowRight, Sun, Moon } from 'lucide-react';
 
 const Navbar = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check local storage or system preference on mount
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setIsDark(false);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      localStorage.theme = 'light';
+      setIsDark(false);
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
+      setIsDark(true);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-[90] w-full transition-all duration-300 font-sans mt-4 px-4">
       <div className="max-w-[1200px] mx-auto px-4 lg:px-6 xl:px-8 h-[76px] bg-[#F8F9FA] rounded-[2rem] shadow-[0_20px_50px_-10px_rgba(54,45,125,0.1)] flex items-center justify-between gap-4 xl:gap-8 relative z-20 border border-gray-100">
@@ -77,8 +102,18 @@ const Navbar = () => {
         </nav>
 
         {/* Right Info */}
-        <div className="hidden lg:flex items-center justify-end gap-5 lg:flex-1 shrink-0">
-          <a href="tel:+18000000000" className="flex items-center gap-2 text-[#352F75] font-bold hover:text-[#0284C7] transition-colors text-[14px] whitespace-nowrap">
+        <div className="hidden lg:flex items-center justify-end gap-4 xl:gap-5 lg:flex-1 shrink-0">
+          
+          {/* Dark Mode Toggle */}
+          <button 
+            onClick={toggleDarkMode}
+            className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors shadow-sm"
+            aria-label="Toggle Dark Mode"
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
+          <a href="tel:+18000000000" className="flex items-center gap-2 text-[#352F75] font-bold hover:text-[#0284C7] transition-colors text-[14px] whitespace-nowrap ml-2">
             <Phone size={16} /> <span className="hidden xl:inline">+1 (800) 000-0000</span>
           </a>
           <Link to="/contact" className="hidden xl:flex bg-[#0284C7] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-[#352F75] transition-colors items-center gap-2 whitespace-nowrap">
