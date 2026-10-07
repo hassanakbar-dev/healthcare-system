@@ -1,65 +1,97 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Clock, Phone, Search, PlusSquare } from 'lucide-react';
+import { ChevronDown, Phone, Menu, HeartPulse, Brain, Bone, Baby, Activity, Stethoscope, Eye, Thermometer, ArrowRight } from 'lucide-react';
 
 const Navbar = () => {
   return (
-    <header className="w-full">
-      {/* Top Bar */}
-      <div className="bg-indigo-700 text-indigo-50 text-xs py-2 px-4 hidden lg:block">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex gap-6">
-            <span className="flex items-center gap-1"><MapPin size={14} /> 2702 Memory Lane, Chicago, IL 60605</span>
-            <span className="flex items-center gap-1"><Clock size={14} /> Monday - Friday 08:00 - 20:00</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1"><Phone size={14} /> Emergency Line: 1-800-100-900</span>
-            <div className="flex gap-4 border-l border-indigo-500 pl-4 font-bold tracking-wider">
-              <span className="cursor-pointer hover:text-white transition">FB</span>
-              <span className="cursor-pointer hover:text-white transition">TW</span>
-              <span className="cursor-pointer hover:text-white transition">IG</span>
+    <header className="fixed top-0 left-0 right-0 z-[90] w-full transition-all duration-300 font-sans mt-4 px-4">
+      <div className="max-w-[1200px] mx-auto px-4 lg:px-6 xl:px-8 h-[76px] bg-[#F8F9FA] rounded-[2rem] shadow-[0_20px_50px_-10px_rgba(54,45,125,0.1)] flex items-center justify-between gap-4 xl:gap-8 relative z-20 border border-gray-100">
+        
+        {/* Logo */}
+        <div className="flex lg:flex-1 items-center justify-start">
+          <Link to="/" className="flex items-center shrink-0 gap-2.5 py-2 mr-2 lg:mr-4">
+            <div className="w-9 h-9 bg-gradient-to-br from-[#352F75] to-[#4c45a7] rounded-lg flex items-center justify-center shadow-inner">
+               <Activity className="text-white w-6 h-6" />
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
-      <nav className="bg-white py-4 px-4 shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          
-          {/* Logo Section */}
-          <Link to="/" className="flex items-center gap-2 text-indigo-800">
-            <PlusSquare size={30} className="text-indigo-600" strokeWidth={2.5} />
-            <span className="text-2xl font-extrabold tracking-tight">NovaCare</span>
+            <span className="text-[20px] lg:text-[23px] font-black text-[#352F75] tracking-tight">NOVACARE</span>
           </Link>
-
-          {/* Nav Links */}
-          <div className="hidden lg:flex gap-8 text-slate-700 font-medium text-sm">
-            <Link to="/" className="text-indigo-600 hover:text-indigo-800 transition">Home</Link>
-            <Link to="/about" className="hover:text-indigo-600 transition">About</Link>
-            <Link to="/departments" className="hover:text-indigo-600 transition">Departments</Link>
-            <Link to="/timetable" className="hover:text-indigo-600 transition">Timetable</Link>
-            <Link to="/blog" className="hover:text-indigo-600 transition">Blog</Link>
-            <Link to="/contact" className="hover:text-indigo-600 transition">Contact</Link>
-          </div>
-
-          {/* Search Bar & Login Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center bg-slate-100 rounded-full px-4 py-2 w-48 lg:w-64">
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                className="bg-transparent border-none outline-none text-sm w-full text-slate-700 placeholder-slate-400"
-              />
-              <Search size={16} className="text-slate-400 cursor-pointer" />
-            </div>
-            
-            <Link to="/auth" className="bg-indigo-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-indigo-700 transition shadow-md whitespace-nowrap">
-              Login / Sign Up
-            </Link>
-          </div>
         </div>
-      </nav>
+
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center justify-center gap-4 xl:gap-6 font-medium text-gray-700 text-[14px] relative shrink-0">
+          
+          <Link to="/" className="hover:text-[#0284C7] transition-colors py-4">Home</Link>
+          <Link to="/about" className="hover:text-[#0284C7] transition-colors py-4">About Us</Link>
+          
+          <div className="group py-4 flex items-center gap-1 transition-colors relative">
+            <Link to="/departments" className="cursor-pointer hover:text-[#0284C7] flex items-center gap-1">
+              Departments <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+            </Link>
+            <div className="absolute top-[100%] left-0 bg-white rounded-xl shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15)] border-[1.5px] border-[#352F75] hidden group-hover:block z-50 text-left w-[900px] -ml-[250px] overflow-hidden">
+              <div className="grid grid-cols-3 gap-0 p-8 pb-10">
+                <div className="flex flex-col gap-8 pr-6 border-r border-gray-100">
+                  <Link to="/departments/cardiology" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><HeartPulse size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Cardiology</h4><p className="text-gray-500 text-[13px] leading-snug">Advanced heart care and surgeries.</p></div>
+                  </Link>
+                  <Link to="/departments/neurology" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><Brain size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Neurology</h4><p className="text-gray-500 text-[13px] leading-snug">Expert care for the nervous system.</p></div>
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-8 px-6 border-r border-gray-100">
+                  <Link to="/departments/orthopedics" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><Bone size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Orthopedics</h4><p className="text-gray-500 text-[13px] leading-snug">Joint replacements and sports injuries.</p></div>
+                  </Link>
+                  <Link to="/departments/pediatrics" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><Baby size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Pediatrics</h4><p className="text-gray-500 text-[13px] leading-snug">Gentle care for infants and children.</p></div>
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-8 px-6">
+                  <Link to="/departments/primary-care" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><Stethoscope size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Primary Care</h4><p className="text-gray-500 text-[13px] leading-snug">Routine checkups and health screenings.</p></div>
+                  </Link>
+                   <Link to="/departments/ophthalmology" className="flex items-start gap-4 group/item">
+                    <div className="w-12 h-12 rounded-full bg-[#352F75] text-white flex items-center justify-center shrink-0"><Eye size={20}/></div>
+                    <div className="flex flex-col"><h4 className="text-[#333] font-bold text-[15px] mb-1 group-hover/item:text-[#352F75] transition-colors">Ophthalmology</h4><p className="text-gray-500 text-[13px] leading-snug">Vision correction and eye exams.</p></div>
+                  </Link>
+                </div>
+              </div>
+              <div className="bg-[#f8f9fa] px-8 py-5 border-t border-gray-100 flex items-center justify-between">
+                <div>
+                  <h5 className="font-bold text-[#111] text-[15px]">NEED URGENT CARE?</h5>
+                  <p className="text-gray-500 text-[13px] mt-0.5">Our emergency department is open 24/7 for you.</p>
+                </div>
+                <Link to="/contact" className="bg-[#0284C7] hover:bg-[#352F75] text-white font-bold py-2.5 px-6 rounded-lg transition-colors text-[13px] shadow-sm">View Locations</Link>
+              </div>
+            </div>
+          </div>
+          
+          <Link to="/timetable" className="hover:text-[#0284C7] transition-colors py-4">Timetable</Link>
+          <Link to="/blog" className="hover:text-[#0284C7] transition-colors py-4">Blog</Link>
+          <Link to="/contact" className="hover:text-[#0284C7] transition-colors py-4">Contact</Link>
+          
+        </nav>
+
+        {/* Right Info */}
+        <div className="hidden lg:flex items-center justify-end gap-5 lg:flex-1 shrink-0">
+          <a href="tel:+18000000000" className="flex items-center gap-2 text-[#352F75] font-bold hover:text-[#0284C7] transition-colors text-[14px] whitespace-nowrap">
+            <Phone size={16} /> <span className="hidden xl:inline">+1 (800) 000-0000</span>
+          </a>
+          <Link to="/contact" className="hidden xl:flex bg-[#0284C7] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-[#352F75] transition-colors items-center gap-2 whitespace-nowrap">
+             Talk To An Expert <ArrowRight size={16} />
+          </Link>
+        </div>
+        
+        {/* Mobile Menu */}
+        <button className="lg:hidden text-gray-700 ml-auto pointer-events-auto">
+          <Menu size={28} />
+        </button>
+
+      </div>
     </header>
   );
 };
