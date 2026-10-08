@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, User, Stethoscope, Clock, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,8 @@ const Booking = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     department: '',
-    doctor: '',
+    doctorId: '',
+    doctorName: '',
     date: '',
     time: '',
     patientName: '',
@@ -14,13 +15,86 @@ const Booking = () => {
     notes: ''
   });
 
+  const [dbDoctors, setDbDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch doctors from backend
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/doctors');
+        if (response.ok) {
+          const data = await response.json();
+          setDbDoctors(data);
+        }
+      } catch (err) {
+        console.error("Error fetching doctors", err);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  // Dummy Data for Selection
-  const departments = ['Cardiology', 'Neurology', 'Orthopedics', 'Dental Care', 'Primary Care'];
-  const doctors = ['Dr. Sarah Jenkins', 'Dr. David Hull', 'Dr. Emily Chen', 'Dr. Michael Ross'];
+  // Filter doctors by selected department
+  const filteredDoctors = formData.department ? dbDoctors.filter(d => d.specialization === formData.department) : dbDoctors;
+
+  // Extract unique departments from doctors
+  const dbDepartments = dbDoctors.map(d => d.specialization);
+  
+  // Combine default departments with any new ones from DB, ensuring uniqueness
+  const defaultDepartments = ['Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Primary Care', 'Ophthalmology'];
+  const departments = [...new Set([...defaultDepartments, ...dbDepartments])];
+
   const timeSlots = ['09:00 AM', '10:30 AM', '12:00 PM', '02:00 PM', '04:30 PM'];
+
+  const handleBooking = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Create a valid datetime format for MySQL (e.g. "2026-10-15 09:00:00")
+      // We will just construct it since time is e.g. '09:00 AM'
+      let time24 = formData.time; // This is a simplification. Better to parse it properly.
+      const match = formData.time.match(/(\d+):(\d+)\s+(AM|PM)/);
+      if(match) {
+          let hours = parseInt(match[1]);
+          if(match[3] === 'PM' && hours !== 12) hours += 12;
+          if(match[3] === 'AM' && hours === 12) hours = 0;
+          time24 = `${hours.toString().padStart(2, '0')}:${match[2]}:00`;
+      } else {
+          time24 = '00:00:00';
+      }
+      
+      const appointmentDate = `${formData.date} ${time24}`;
+
+      const response = await fetch('http://localhost:5000/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          doctor_id: formData.doctorId,
+          appointment_date: appointmentDate,
+          notes: formData.notes,
+          patientName: formData.patientName,
+          phone: formData.phone
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to book appointment');
+      }
+
+      setLoading(false);
+      nextStep(); // Go to success step
+    } catch (err) {
+      console.error(err);
+      setError('An error occurred while booking. Please try again.');
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pt-28 pb-20 px-4 font-sans">
@@ -77,23 +151,27 @@ const Booking = () => {
           {step === 2 && (
             <div className="flex-grow">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">Choose a Doctor</h2>
+              {filteredDoctors.length === 0 ? (
+                 <p className="text-slate-500">No doctors available for this department yet.</p>
+              ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {doctors.map((doc, i) => (
+                {filteredDoctors.map((doc) => (
                   <div 
-                    key={i} 
-                    onClick={() => setFormData({...formData, doctor: doc})}
-                    className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex items-center gap-4 ${formData.doctor === doc ? 'border-indigo-600 bg-indigo-50' : 'border-slate-100 hover:border-indigo-300'}`}
+                    key={doc.id} 
+                    onClick={() => setFormData({...formData, doctorId: doc.id, doctorName: doc.name})}
+                    className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex items-center gap-4 ${formData.doctorId === doc.id ? 'border-indigo-600 bg-indigo-50' : 'border-slate-100 hover:border-indigo-300'}`}
                   >
                     <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 overflow-hidden">
                       <User size={24} />
                     </div>
                     <div>
-                      <h4 className={`font-bold ${formData.doctor === doc ? 'text-indigo-700' : 'text-slate-800'}`}>{doc}</h4>
-                      <p className="text-sm text-slate-500">{formData.department}</p>
+                      <h4 className={`font-bold ${formData.doctorId === doc.id ? 'text-indigo-700' : 'text-slate-800'}`}>{doc.name}</h4>
+                      <p className="text-sm text-slate-500">{doc.specialization}</p>
                     </div>
                   </div>
                 ))}
               </div>
+              )}
             </div>
           )}
 
@@ -159,9 +237,10 @@ const Booking = () => {
                 {/* Summary Box */}
                 <div className="bg-indigo-50 p-4 rounded-xl mt-4">
                   <h4 className="font-bold text-indigo-900 mb-2">Appointment Summary</h4>
-                  <p className="text-sm text-indigo-700"><strong>Doctor:</strong> {formData.doctor || 'Not selected'} ({formData.department})</p>
+                  <p className="text-sm text-indigo-700"><strong>Doctor:</strong> {formData.doctorName || 'Not selected'} ({formData.department})</p>
                   <p className="text-sm text-indigo-700"><strong>When:</strong> {formData.date || 'No date'}, at {formData.time || 'No time'}</p>
                 </div>
+                {error && <p className="text-red-500 text-sm font-bold mt-2">{error}</p>}
               </div>
             </div>
           )}
@@ -173,7 +252,7 @@ const Booking = () => {
                 <CheckCircle size={48} />
               </div>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Booking Confirmed!</h2>
-              <p className="text-slate-600 mb-8 max-w-md">Your appointment with {formData.doctor} has been successfully scheduled for {formData.date} at {formData.time}. We have sent the details to your phone.</p>
+              <p className="text-slate-600 mb-8 max-w-md">Your appointment with {formData.doctorName} has been successfully scheduled for {formData.date} at {formData.time}. We have sent the details to your phone.</p>
               <Link to="/" className="bg-indigo-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-indigo-700 transition">
                 Return to Home
               </Link>
@@ -200,10 +279,11 @@ const Booking = () => {
                 </button>
               ) : (
                 <button 
-                  onClick={nextStep} 
-                  className="flex items-center gap-2 bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 shadow-md transition-all hover:-translate-y-0.5"
+                  onClick={handleBooking} 
+                  disabled={loading}
+                  className="flex items-center gap-2 bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 shadow-md transition-all hover:-translate-y-0.5 disabled:opacity-50"
                 >
-                  Confirm Booking <CheckCircle size={18} />
+                  {loading ? 'Booking...' : 'Confirm Booking'} <CheckCircle size={18} />
                 </button>
               )}
             </div>

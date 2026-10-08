@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, Calendar, FileText, Pill, Settings, 
   LogOut, User, Clock, CalendarDays, Activity, ChevronRight 
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PatientDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      navigate('/auth');
+    } else {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/auth');
+  };
+
+  if (!user) {
+    return <div className="min-h-screen flex items-center justify-center font-bold text-xl text-slate-500">Redirecting...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans">
@@ -17,8 +37,8 @@ const PatientDashboard = () => {
           <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mb-3 overflow-hidden">
             <User size={40} />
           </div>
-          <h3 className="font-bold text-slate-800 text-lg">John Doe</h3>
-          <span className="text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1 rounded-full mt-1">Patient ID: #NC-8892</span>
+          <h3 className="font-bold text-slate-800 text-lg">{user.name}</h3>
+          <span className="text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1 rounded-full mt-1">Patient ID: #NC-{user.id * 1000}</span>
         </div>
 
         <nav className="flex-1 p-4 space-y-2">
@@ -45,10 +65,10 @@ const PatientDashboard = () => {
         </nav>
 
         <div className="p-4 border-t border-slate-200">
-          <Link to="/" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-500 hover:bg-red-50 transition-all">
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-500 hover:bg-red-50 transition-all">
             <LogOut size={20} />
             Sign Out
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -57,7 +77,7 @@ const PatientDashboard = () => {
         
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome back, John! 👋</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome back, {user.name.split(' ')[0]}! 👋</h1>
           <p className="text-slate-600">Here is an overview of your health and upcoming schedules.</p>
         </div>
 

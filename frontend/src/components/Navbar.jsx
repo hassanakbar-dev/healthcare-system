@@ -1,32 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Phone, Menu, HeartPulse, Brain, Bone, Baby, Activity, Stethoscope, Eye, Thermometer, ArrowRight, Sun, Moon } from 'lucide-react';
+import { ChevronDown, Phone, Menu, X, HeartPulse, Brain, Bone, Baby, Activity, Stethoscope, Eye, Thermometer, ArrowRight, Sun, Moon } from 'lucide-react';
 
 const Navbar = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    // Check local storage or system preference on mount
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    } else {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-      setIsDark(true);
-    }
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[90] w-full transition-all duration-300 font-sans mt-4 px-4">
@@ -103,30 +80,41 @@ const Navbar = () => {
 
         {/* Right Info */}
         <div className="hidden lg:flex items-center justify-end gap-4 xl:gap-5 lg:flex-1 shrink-0">
-          
-          {/* Dark Mode Toggle */}
-          <button 
-            onClick={toggleDarkMode}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors shadow-sm"
-            aria-label="Toggle Dark Mode"
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
 
           <a href="tel:+18000000000" className="flex items-center gap-2 text-[#352F75] font-bold hover:text-[#0284C7] transition-colors text-[14px] whitespace-nowrap ml-2">
             <Phone size={16} /> <span className="hidden xl:inline">+1 (800) 000-0000</span>
           </a>
-          <Link to="/contact" className="hidden xl:flex bg-[#0284C7] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-[#352F75] transition-colors items-center gap-2 whitespace-nowrap">
-             Talk To An Expert <ArrowRight size={16} />
+          <Link to="/auth" className="hidden xl:flex bg-[#0284C7] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-[#352F75] transition-colors items-center gap-2 whitespace-nowrap">
+             Sign In <ArrowRight size={16} />
           </Link>
         </div>
         
-        {/* Mobile Menu */}
-        <button className="lg:hidden text-gray-700 ml-auto pointer-events-auto">
-          <Menu size={28} />
+        {/* Mobile Menu Button */}
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+          className="lg:hidden text-gray-700 ml-auto pointer-events-auto"
+        >
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-[90px] left-4 right-4 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-800 p-6 flex flex-col gap-4 z-50">
+          <Link to="/" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+          <Link to="/about" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+          <Link to="/departments" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>Departments</Link>
+          <Link to="/timetable" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>Timetable</Link>
+          <Link to="/blog" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
+          <Link to="/contact" className="text-lg font-bold text-gray-800 dark:text-gray-100 hover:text-[#0284C7]" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          <div className="h-[1px] w-full bg-gray-100 dark:bg-slate-800 my-2"></div>
+          <Link to="/auth" className="bg-[#0284C7] text-white text-center py-3 rounded-xl font-bold text-lg hover:bg-[#352F75] transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+            Sign In
+          </Link>
+        </div>
+      )}
+
     </header>
   );
 };
