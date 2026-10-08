@@ -6,7 +6,7 @@ const Blog = () => {
   const posts = [
     { 
       id: "heart-healthy-foods",
-      img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80", 
       title: "Top 10 Heart-Healthy Foods for a Longer Life", 
       tag: "Nutrition", 
       date: "Oct 1, 2026",
@@ -16,7 +16,7 @@ const Blog = () => {
     },
     { 
       id: "mental-health",
-      img: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?auto=format&fit=crop&w=800&q=80", 
       title: "Understanding Mental Health and Mindfulness", 
       tag: "Wellness", 
       date: "Sep 28, 2026",
@@ -26,7 +26,7 @@ const Blog = () => {
     },
     { 
       id: "physical-therapy",
-      img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&w=800&q=80", 
       title: "How Physical Therapy Accelerates Recovery", 
       tag: "Rehab", 
       date: "Sep 24, 2026",
@@ -36,7 +36,7 @@ const Blog = () => {
     },
     { 
       id: "immune-system",
-      img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800", 
       title: "Protecting Your Immune System Naturally", 
       tag: "Health Tips", 
       date: "Sep 20, 2026",
@@ -46,7 +46,7 @@ const Blog = () => {
     },
     { 
       id: "importance-of-sleep",
-      img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg?auto=compress&cs=tinysrgb&w=800", 
       title: "The Importance of Sleep for Cognitive Function", 
       tag: "Lifestyle", 
       date: "Sep 15, 2026",
@@ -56,7 +56,7 @@ const Blog = () => {
     },
     { 
       id: "managing-diabetes",
-      img: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80", 
+      img: "https://images.pexels.com/photos/4047073/pexels-photo-4047073.jpeg?auto=compress&cs=tinysrgb&w=800", 
       title: "Managing Diabetes Daily: Expert Advice", 
       tag: "Care", 
       date: "Sep 10, 2026",
