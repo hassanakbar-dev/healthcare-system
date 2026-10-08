@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     } else {
       // Create new patient profile
       const [newPatient] = await db.query(
-        'INSERT INTO patients (user_id, phone) VALUES (?, ?)', 
+        'INSERT INTO patients (user_id, phone) VALUES (?, ?)',
         [finalUserId, phone || '']
       );
       patientId = newPatient.insertId;
@@ -43,9 +43,9 @@ router.post('/', async (req, res) => {
       [patientId, doctor_id, appointment_date, notes || '', 'Scheduled']
     );
 
-    res.status(201).json({ 
+    res.status(201).json({
       message: 'Appointment booked successfully!',
-      appointmentId: result.insertId 
+      appointmentId: result.insertId
     });
   } catch (err) {
     console.error(err);
