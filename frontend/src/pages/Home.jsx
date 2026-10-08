@@ -49,100 +49,29 @@ const Home = () => {
       `}</style>
 
       {/* 1. HERO SECTION */}
-      <section className="w-full bg-white relative overflow-hidden flex flex-col pt-[90px] md:pt-[180px] min-h-[100vh] lg:min-h-[105vh] xl:min-h-[108vh]">
-        <svg className="absolute inset-0 w-full h-full text-[#EFF6FF] z-0 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-          <path d="M-10,30 Q20,10 50,30 T110,30" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round"></path>
-          <path d="M-10,70 Q30,90 60,70 T110,70" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round"></path>
-          <path d="M-10,50 Q25,30 50,50 T110,50" fill="none" stroke="currentColor" strokeWidth="0.3" strokeLinecap="round"></path>
-        </svg>
+      <section className="w-full bg-[#FCFDFD] pt-[130px] md:pt-[170px] pb-10 flex flex-col items-center text-center">
+        <div className="max-w-[1200px] mx-auto px-6 w-full flex flex-col items-center">
+          
+          <h1 className="text-[40px] md:text-[72px] lg:text-[80px] font-black text-[#1A1A1A] leading-[1.05] mb-6 tracking-[-0.03em]">
+            Complete Healthcare<br/>
+            for <span className="text-[#7F74F8]">Every Need.</span>
+          </h1>
+          
+          <p className="text-[#595959] text-[15px] md:text-[18px] font-medium max-w-3xl mx-auto mb-14 leading-[1.6]">
+            Expert medical care designed to keep you and your family healthy,<br className="hidden md:block"/> happy, and safe.
+          </p>
 
-        <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-10 flex-1 flex flex-col relative h-full">
-          <div className="relative w-full flex-1 grid grid-cols-1 grid-rows-1 place-items-center mt-2 md:mt-4">
-            <div className="col-start-1 row-start-1 w-full h-full flex flex-col items-center justify-end pointer-events-none select-none pb-[35%] sm:pb-[25%] md:pb-[15%] lg:pb-[10%] xl:pb-[8%]">
-              <div className="w-full flex justify-center md:justify-between items-center px-4 md:px-12 relative z-30 anim-typing-1 gap-2 md:gap-0">
-                <span className="text-[12vw] sm:text-[10vw] md:text-[85px] lg:text-[120px] xl:text-[140px] font-black tracking-[-0.02em] leading-[0.95] uppercase text-[#352F75]">Your</span>
-                <span className="text-[12vw] sm:text-[10vw] md:text-[85px] lg:text-[120px] xl:text-[140px] font-black tracking-[-0.02em] leading-[0.95] uppercase text-[#3B82F6]">Health,</span>
-              </div>
-              <h1 className="text-[12vw] sm:text-[10vw] md:text-[85px] lg:text-[120px] xl:text-[140px] font-black tracking-[-0.02em] leading-[0.95] uppercase relative z-30 anim-typing-2 w-max mx-auto mt-2 md:mt-4">
-                <span className="text-transparent" style={{WebkitTextStroke: '4px #352F75'}}>Our</span> <span className="text-[#352F75]">Priority</span>
-              </h1>
-            </div>
-            
-            <div className="col-start-1 row-start-1 w-full h-full flex justify-center items-end pointer-events-none relative z-20 overflow-visible">
-              <img src="https://health-website-static.vercel.app/assets/pngwing.com.png" alt="Healthcare Professional" className="w-[140vw] sm:w-[100vw] md:w-[850px] lg:w-[1000px] max-w-none h-auto max-h-[85vh] object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)] anim-slide-up origin-bottom pointer-events-auto shrink-0"/>
-            </div>
-
-            {/* Floating Icons */}
-            <div className="absolute top-[10%] left-0 lg:left-[2%] z-40 anim-pop-in-1 pointer-events-auto">
-              <div className="anim-float-1 w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-indigo-100 transform -rotate-12">
-                 <HeartPulse className="w-10 h-10 text-rose-500" />
-              </div>
-            </div>
-            <div className="absolute top-[55%] left-0 lg:left-[2%] z-40 anim-pop-in-2 pointer-events-auto">
-              <div className="anim-float-2 w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-indigo-100 transform -rotate-12">
-                 <Stethoscope className="w-10 h-10 text-indigo-500" />
-              </div>
-            </div>
-            <div className="absolute top-[15%] right-0 lg:right-[2%] z-40 anim-pop-in-3 pointer-events-auto">
-              <div className="anim-float-3 w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-indigo-100 transform rotate-6">
-                 <Shield className="w-10 h-10 text-emerald-500" />
-              </div>
-            </div>
+          <div className="w-full rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] relative bg-gradient-to-b from-[#F0F5F9] to-[#E3EAF2] flex justify-center pt-10 md:pt-16 border border-white/80 transition-all duration-700 ease-out hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)]">
+            <img 
+              src="https://health-website-static.vercel.app/assets/pngwing.com.png" 
+              alt="Professional Doctor" 
+              className="w-full h-auto max-h-[450px] md:max-h-[600px] lg:max-h-[700px] object-contain object-bottom drop-shadow-2xl transform hover:scale-[1.02] transition-transform duration-700 ease-out"
+            />
           </div>
 
-          {/* Lower Hero Section */}
-          <div className="relative z-30 w-full flex flex-col md:flex-row items-center justify-between pb-4 md:pb-4 lg:pb-2 mt-auto anim-fade-in-up px-2">
-            <div className="mb-6 md:mb-0 text-center md:text-left flex flex-col gap-0.5 bg-white/70 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-3 md:p-0 rounded-2xl md:rounded-none shadow-sm md:shadow-none border border-white/50 md:border-transparent">
-              <p className="text-[#3730A3] font-extrabold text-[15px] md:text-[17px] lg:text-[19px] tracking-tight">The Leading Healthcare</p>
-              <p className="text-[#000000] font-extrabold text-[16px] md:text-[19px] lg:text-[22px] tracking-tight flex items-center justify-center md:justify-start gap-1.5 mt-0.5">
-                Provider for
-                <span className="font-black text-transparent bg-clip-text relative top-[1px]" style={{backgroundImage: 'url(https://flagcdn.com/w160/us.png)', backgroundSize: 'cover', backgroundPosition: 'center', WebkitBackgroundClip: 'text', WebkitTextStroke: '1px #000'}}>USA</span>
-                Citizens
-              </p>
-            </div>
-            <Link to="/timetable" className="flex items-center gap-2 group cursor-pointer drop-shadow-md pointer-events-auto">
-              <button className="bg-[#2563EB] group-hover:bg-[#1D4ED8] text-white font-bold py-3.5 px-8 rounded-xl transition-colors text-[16px] tracking-wide">Book Appointment</button>
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#2563EB] group-hover:bg-[#EFF6FF] transition-colors">
-                <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
-              </div>
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* 2. TICKER SECTION (Light Blue) */}
-      <div className="w-full bg-[#EFF6FF] py-6 overflow-hidden relative z-20 shadow-inner border-y border-[#bfdbfe]">
-        <div className="ticker-track flex items-center">
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex items-center justify-around gap-12 lg:gap-24 w-max shrink-0 px-6 lg:px-12">
-              <span className="text-[26px] font-extrabold text-[#352F75] flex items-center gap-2"><HeartPulse size={28}/> Cardiology</span>
-              <span className="text-[26px] font-extrabold text-[#352F75] flex items-center gap-2"><Brain size={28}/> Neurology</span>
-              <span className="text-[26px] font-extrabold text-[#352F75] flex items-center gap-2"><Bone size={28}/> Orthopedics</span>
-              <span className="text-[26px] font-extrabold text-[#352F75] flex items-center gap-2"><Baby size={28}/> Pediatrics</span>
-              <span className="text-[26px] font-extrabold text-[#352F75] flex items-center gap-2"><Syringe size={28}/> Oncology</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 3. STATS STRIP (Dark Blue) */}
-      <div className="bg-[#241D50] text-white py-4 md:py-5 relative z-20 overflow-hidden">
-        <div className="flex w-max animate-[slideRight_30s_linear_infinite] hover:[animation-play-state:paused] cursor-default">
-          {[...Array(3)].map((_, i) => (
-            <React.Fragment key={i}>
-              <div className="flex items-center gap-3 px-8 md:px-16 text-[13px] md:text-[14px] font-semibold border-l border-white/20 whitespace-nowrap">
-                <Star className="w-5 h-5 text-white" fill="currentColor"/> <span>1500+ Specialized Doctors</span>
-              </div>
-              <div className="flex items-center gap-3 px-8 md:px-16 text-[13px] md:text-[14px] font-semibold border-l border-white/20 whitespace-nowrap">
-                <Activity className="w-5 h-5 text-white" /> <span>Serving 75+ Medical Departments</span>
-              </div>
-              <div className="flex items-center gap-3 px-8 md:px-16 text-[13px] md:text-[14px] font-semibold border-l border-white/20 whitespace-nowrap">
-                <Shield className="w-5 h-5 text-white" /> <span>24/7 Emergency Care Center</span>
-              </div>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
 
       {/* 4. OVERVIEW CARDS */}
       <section className="py-24 bg-white">
